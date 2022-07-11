@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/CameraManager.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/InputManager.gd" type="Script" id=4]
+
+[sub_resource type="SphereShape" id=1]
+radius = 0.1
+
+[node name="Game" type="Node"]
+script = ExtResource( 1 )
+CharacterScene = ExtResource( 2 )
+
+[node name="InputManager" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="CameraManager" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="CameraRoot" type="Spatial" parent="CameraManager"]
+transform = Transform( -1, 8.74228e-08, 0, 8.74228e-08, 1, -8.74228e-08, -7.64274e-15, -8.74228e-08, -1, 0, 0, 0 )
+
+[node name="CameraPivot" type="Spatial" parent="CameraManager/CameraRoot"]
+transform = Transform( 1, 6.6815e-22, 0, 6.6815e-22, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="SpringArm" type="SpringArm" parent="CameraManager/CameraRoot/CameraPivot"]
+transform = Transform( 1, 6.6815e-22, 0, 6.6815e-22, 1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 1 )
+spring_length = 4.0
+
+[node name="Camera" type="Camera" parent="CameraManager/CameraRoot/CameraPivot/SpringArm"]
